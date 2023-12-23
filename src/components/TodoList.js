@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 import TodoItem from "./TodoItem";
+import {useTodoState} from "../TodoContext";
 
 const TodoListBlock = styled.div`
   flex: 1;
@@ -10,12 +11,17 @@ const TodoListBlock = styled.div`
 `;
 
 function TodoList() {
+    const todos = useTodoState();
+
     return (
         <TodoListBlock>
-            <TodoItem text="프로젝트 생성하기1" done={true}/>
-            <TodoItem text="프로젝트 생성하기2" done={true}/>
-            <TodoItem text="프로젝트 생성하기3" done={false}/>
-            <TodoItem text="프로젝트 생성하기4" done={false}/>
+            {todos.map(
+                todo => <TodoItem
+                    id={todo.id}
+                    text={todo.text}
+                    done={todo.done}
+                />
+            )}
         </TodoListBlock>
     );
 }
